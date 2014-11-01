@@ -1,0 +1,8 @@
+<h3>Grocery Lists</h3>
+<ul>
+{{#each list}}
+<li><a href="/list/{{slug}}">{{name}}</a></li>
+{{/each}}
+</ul>
+
+<a href="list">All Lists</a> | <a href="list/create">Create a New List</a>
