@@ -1,0 +1,26 @@
+
+<h3>{{title}}</h3>
+
+<form method="POST" action="/item/check">
+{{#each items}}
+
+<input type="checkbox" name="itemCheckbox" value="{{itemName}}">
+<label>{{quantity}} x {{itemName}}</label>
+<input type="hidden" name="slugName" value="{{slug}}">
+</br>
+
+{{/each}}
+</br>
+<input type="submit" value="Update List">
+</form>
+
+</br>
+
+<form method="POST" action="">
+<input type="text" name="quantity"> x <input type="text" name="itemName"><input type="hidden" name="slug" value={{slug}}>
+<input type="submit">
+</form>
+
+</br>
+
+<a href="/">All Lists</a> | <a href="/create">Create a New List</a>

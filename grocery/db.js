@@ -12,9 +12,10 @@ var List = new mongoose.Schema({
 List.plugin(URLSlugs('name'));
 
 var Item = new mongoose.Schema({
-	name: String,
+	itemName: String,
 	quantity: Number,
-	checked: {type: Boolean, default:false}
+	checked: {type: Boolean, default:false},
+	slug: String
 });
 
 mongoose.model('List', List);
