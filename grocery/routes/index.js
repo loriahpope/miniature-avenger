@@ -37,11 +37,10 @@ router.post('/list/create', function(req, res) {
 router.get('/list/:slug', function(req, res) {
 	var current = req.params.slug;
 	List.findOne({slug: current}, function(err, list, count){
-		Item.find(function(err, items, count){
 			res.render('item', {
-				items: items
+				slug: list.name,
+				items: list.items
 			});
-		});
 	});
 });
 
@@ -56,12 +55,33 @@ router.post('/list/:slug', function(req, res){
 	});
 
 	List.findOneAndUpdate({slug: req.body.slug}, {$push:{items:newItem}}, function(err, list, count){
-		console.log(list);
 		res.redirect('/list/'+req.body.slug);
 	});
 });
 
-router.post('/item/check', function(req, res){
+router.post('/item/', function(req, res) {
+	var checkedItem = req.body.itemCheckbox;
+	console.log("checked: " + checkedItem);
+	var slug = req.body.slugName[0];
+
+	console.log(typeof(checkedItem));
+
+	var isSelected = req.body.isChecked;
+	console.log("is selected: " + isSelected);
+
+	List.findOne({slug: slug}, function(err, list, count){
+			for(var i = 0; i < list.items.length; i++){
+				var listItem = list.items[i].itemName;
+				if(listItem == checkedItem){
+					console.log('yo');
+					list.items[i].checked = true;
+				};
+			};
+		res.redirect('/list/'+slug);
+	});
+});
+
+/*router.post('/item/check', function(req, res){
 	console.log('yo');
 	var checkedItem = req.body.itemCheckbox;
 	console.log("checked: " + checkedItem);
@@ -74,6 +94,6 @@ router.post('/item/check', function(req, res){
 	console.log('url: ' + url);
 	res.redirect('/')
 
-});
+});*/
 
 module.exports = router;

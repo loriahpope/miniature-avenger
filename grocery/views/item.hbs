@@ -1,12 +1,13 @@
 
 <h3>{{title}}</h3>
 
-<form method="POST" action="/item/check">
+<form method="POST" action="/item/">
 {{#each items}}
 
-<input type="checkbox" name="itemCheckbox" value="{{itemName}}">
+<input type="checkbox" name="itemCheckbox" value="{{itemName}}" id="{{slug}}">
 <label>{{quantity}} x {{itemName}}</label>
 <input type="hidden" name="slugName" value="{{slug}}">
+<input type="hidden" name="isChecked" value="{{checked}}">
 </br>
 
 {{/each}}
@@ -23,4 +24,4 @@
 
 </br>
 
-<a href="/">All Lists</a> | <a href="/create">Create a New List</a>
+<a href="/">All Lists</a> | <a href="/list/create">Create a New List</a>

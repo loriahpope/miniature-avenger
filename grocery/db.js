@@ -2,6 +2,13 @@ var mongoose = require('mongoose'), URLSlugs = require('mongoose-url-slugs');
 
 //my schema goes here!
 
+var Item = new mongoose.Schema({
+	itemName: String,
+	quantity: Number,
+	checked: {type: Boolean, default:false},
+	slug: String
+});
+
 var List = new mongoose.Schema({
 	name: String,
 	createdBy: String,
@@ -10,13 +17,6 @@ var List = new mongoose.Schema({
 });
 
 List.plugin(URLSlugs('name'));
-
-var Item = new mongoose.Schema({
-	itemName: String,
-	quantity: Number,
-	checked: {type: Boolean, default:false},
-	slug: String
-});
 
 mongoose.model('List', List);
 mongoose.model('Item', Item);
