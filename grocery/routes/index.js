@@ -65,7 +65,7 @@ router.post('/item/', function(req, res) {
 	console.log("checked: " + checkedItem);
 	var slug = req.body.slug[0];
 
-	List.findOne({slug: slug}, function(err, list, count){
+		List.findOne({slug: slug}, function(err, list, count){
 		for(var i = 0; i < list.items.length; i++){
 			
 			if(list.items[i].itemName == checkedItem){
@@ -77,6 +77,7 @@ router.post('/item/', function(req, res) {
 		}
 		res.redirect('/list/'+slug);
 	});
+
 });
 
 module.exports = router;
