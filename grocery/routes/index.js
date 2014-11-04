@@ -25,7 +25,7 @@ router.post('/list/create', function(req, res) {
 	console.log(req.body.list);
 	new List({
 		name: req.body.list,
-		createdBy: req.user,
+		createdBy: req.body.creator,
 		items: [],
 		updated_at : Date.now()
 	}).save(function(err, list, count){
@@ -38,7 +38,7 @@ router.get('/list/:slug', function(req, res) {
 	var current = req.params.slug;
 	List.findOne({slug: current}, function(err, list, count){
 			res.render('item', {
-				slug: list.name,
+				title: list.name,
 				items: list.items
 			});
 	});
@@ -61,39 +61,22 @@ router.post('/list/:slug', function(req, res){
 
 router.post('/item/', function(req, res) {
 	var checkedItem = req.body.itemCheckbox;
+
 	console.log("checked: " + checkedItem);
-	var slug = req.body.slugName[0];
-
-	console.log(typeof(checkedItem));
-
-	var isSelected = req.body.isChecked;
-	console.log("is selected: " + isSelected);
+	var slug = req.body.slug[0];
 
 	List.findOne({slug: slug}, function(err, list, count){
-			for(var i = 0; i < list.items.length; i++){
-				var listItem = list.items[i].itemName;
-				if(listItem == checkedItem){
-					console.log('yo');
-					list.items[i].checked = true;
-				};
-			};
+		for(var i = 0; i < list.items.length; i++){
+			
+			if(list.items[i].itemName == checkedItem){
+				list.items[i].checked = true;
+				list.save(function(saveErr, saveList, saveCount){
+					console.log(saveList);
+				});
+			}
+		}
 		res.redirect('/list/'+slug);
 	});
 });
-
-/*router.post('/item/check', function(req, res){
-	console.log('yo');
-	var checkedItem = req.body.itemCheckbox;
-	console.log("checked: " + checkedItem);
-	var currentSlug = req.body.slugName;
-	console.log("slug: " + currentSlug);
-	List.find({items: {checked:checkedItem}}, function(err, list, count) {
-		console.log(list);
-	});
-	var url = req.url;
-	console.log('url: ' + url);
-	res.redirect('/')
-
-});*/
 
 module.exports = router;

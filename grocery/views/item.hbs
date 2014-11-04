@@ -4,11 +4,24 @@
 <form method="POST" action="/item/">
 {{#each items}}
 
+<ul type = "none">
+
+{{#unless checked}}
+
+<li>
 <input type="checkbox" name="itemCheckbox" value="{{itemName}}" id="{{slug}}">
-<label>{{quantity}} x {{itemName}}</label>
-<input type="hidden" name="slugName" value="{{slug}}">
-<input type="hidden" name="isChecked" value="{{checked}}">
-</br>
+{{quantity}} x {{itemName}}
+</li>
+
+{{/unless}}
+
+{{#if checked}}
+<li><del>{{quantity}} x {{itemName}}</del></li>
+{{/if}}
+
+<input type="hidden" name="slug" value="{{slug}}">
+
+</ul>
 
 {{/each}}
 </br>
@@ -19,7 +32,7 @@
 
 <form method="POST" action="">
 <input type="text" name="quantity"> x <input type="text" name="itemName"><input type="hidden" name="slug" value={{slug}}>
-<input type="submit">
+<input type="submit" value="Add to List">
 </form>
 
 </br>

@@ -5,7 +5,7 @@ var mongoose = require('mongoose'), URLSlugs = require('mongoose-url-slugs');
 var Item = new mongoose.Schema({
 	itemName: String,
 	quantity: Number,
-	checked: {type: Boolean, default:false},
+	checked: Boolean,
 	slug: String
 });
 
