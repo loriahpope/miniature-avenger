@@ -60,24 +60,30 @@ router.post('/list/:slug', function(req, res){
 });
 
 router.post('/item/', function(req, res) {
-	var checkedItem = req.body.itemCheckbox;
-
-	console.log("checked: " + checkedItem);
+	//handles slug for number of items checked
 	var slug = req.body.slug[0];
 
-		List.findOne({slug: slug}, function(err, list, count){
+	if(slug.length == 1){
+		slug = req.body.slug;
+	}
+
+	//Handles number of items checked
+	var checkedArray = ("" + req.body.itemCheckbox).split(",");
+
+	List.findOne({slug: slug}, function(err, list, count){
 		for(var i = 0; i < list.items.length; i++){
-			
-			if(list.items[i].itemName == checkedItem){
-				list.items[i].checked = true;
-				list.save(function(saveErr, saveList, saveCount){
-					console.log(saveList);
-				});
+			for(var j = 0; j < checkedArray.length; j++){
+				if(list.items[i].itemName == checkedArray[j]){
+					list.items[i].checked = true;
+					list.save(function(saveErr, saveList, saveCount){
+						console.log(saveList);
+					});
+				}
 			}
 		}
 		res.redirect('/list/'+slug);
 	});
-
+	
 });
 
 module.exports = router;

@@ -1,40 +1,49 @@
 
-<h3>{{title}}</h3>
+<div class ="formPage">
 
-<form method="POST" action="/item/">
-{{#each items}}
+	<h3>{{title}}</h3>
 
-<ul type = "none">
+		<div class = "checkForm">
+		<form method="POST" action="/item/">
+		{{#each items}}
 
-{{#unless checked}}
+		<ul type = "none">
 
-<li>
-<input type="checkbox" name="itemCheckbox" value="{{itemName}}" id="{{slug}}">
-{{quantity}} x {{itemName}}
-</li>
+		{{#unless checked}}
 
-{{/unless}}
+		<li>
+		<input type="checkbox" name="itemCheckbox" value="{{itemName}}" id="{{slug}}">
+		{{quantity}} x {{itemName}}
+		</li>
 
-{{#if checked}}
-<li><del>{{quantity}} x {{itemName}}</del></li>
-{{/if}}
+		{{/unless}}
 
-<input type="hidden" name="slug" value="{{slug}}">
+		{{#if checked}}
+		<li><del>{{quantity}} x {{itemName}}</del></li>
+		{{/if}}
 
-</ul>
+		<input type="hidden" name="slug" value="{{slug}}">
 
-{{/each}}
-</br>
-<input type="submit" value="Update List">
-</form>
+		</ul>
 
-</br>
+		{{/each}}
+		</br>
+		<input type="submit" value="Update List">
+		</form>
 
-<form method="POST" action="">
-<input type="text" name="quantity"> x <input type="text" name="itemName"><input type="hidden" name="slug" value={{slug}}>
-<input type="submit" value="Add to List">
-</form>
+	</div>
 
-</br>
+	</br>
 
-<a href="/">All Lists</a> | <a href="/list/create">Create a New List</a>
+	<div class="bottomSection">
+		<form method="POST" action="">
+		<input type="text" name="quantity" class="quantity"> x <input type="text" name="itemName"><input type="hidden" name="slug" value={{slug}}>
+		</br>
+		<input type="submit" value="Add to List">
+		</form>
+
+		</br>
+
+		<a href="/">All Lists</a> | <a href="/list/create">Create a New List</a>
+	</div>
+</div>
